@@ -1,5 +1,6 @@
 # CSCI375_Top_Comment
 By: Will Burford, Vincent Lin, Haoyu Sheng, Tongyu Zhou
+
 Our goal is to develop a YouTube comment generator, which will generate the top comment on a given YouTube video. On the way to this goal, we will create a classifier which will quantify the probability of a comment getting the most likes on a given video.
 
 ## Package and Data Management
