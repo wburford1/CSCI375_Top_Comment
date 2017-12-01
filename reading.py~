@@ -20,8 +20,8 @@ columns = ['video_id', 'title', 'channel_title', 'category_id',
 
 
 
-us_vid_df = pd.read_csv('youtube/USvideos.csv',usecols = columns)
-UScomments = pd.read_csv('youtube/UScomments.csv',encoding='utf8', error_bad_lines = False) 
+us_vid_df = pd.read_csv('/youtube/USvideos.csv',usecols = columns)
+UScomments = pd.read_csv('/youtube/UScomments.csv',encoding='utf8', error_bad_lines = False) 
 '''
 with open('../input/US_category_id.json') as file:    
     US_category_id = json.load(file)
