@@ -1,4 +1,4 @@
-setup: setup-venv extract-zip
+setup: setup-venv extract-zip read
 
 clean: clean-venv clean-zip
 
@@ -31,3 +31,6 @@ extract-zip:
 
 clean-zip:
 	python3 read_zip_data.py clean
+
+read:
+	python3 read.py
