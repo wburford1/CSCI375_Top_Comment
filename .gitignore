@@ -103,3 +103,6 @@ youtube/
 
 # json
 *.json
+
+# swp
+*.swp
