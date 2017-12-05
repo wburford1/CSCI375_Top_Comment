@@ -31,7 +31,7 @@ if __name__ == '__main__':
             print('Comment 1: "{}"\nComment 2: "{}"'.format(comment_set[0], comment_set[1]))
             results = []
             for classifier in all_classifiers:
-                results.append(classifier.choose(comment_set[0], comment_set[1]))
+                results.append(classifier.choose(comment_set[0], comment_set[1], 'YYwB63YslbA'))
             r_counter = 0
             for res in results:
                 r_counter += 1
