@@ -1,6 +1,8 @@
 from tkinter import *
 from sentiment_classifier import compare_sent
-
+from LM import preprocess, generate_sent
+from Generator import corpus_generation
+from jsonTest import process_text
 class classifier:
 
     def __init__(self, master):
@@ -84,7 +86,9 @@ class generator:
             ## do things here
             ## Use e1.get, e2.get to get user input
             ## Use set to set output
-            message.set(e1.get())
+            category = e3.get()
+            corpus_generation(process_text(category))
+            message.set(generate_sent(5, preprocess())+"\n"+ generate_sent(4, preprocess())+"\n"+generate_sent(4, preprocess()))
 
         ## This frame contains the buttons
         frame_buttons = Frame(master)
@@ -101,6 +105,6 @@ class generator:
 if __name__ == '__main__':
     
     root = Tk()
-    app = classifier(root)
+    app = generator(root)
     root.mainloop()
     root.destroy()

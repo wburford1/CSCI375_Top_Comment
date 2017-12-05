@@ -55,48 +55,26 @@ def next_word(x, token, dict, text):
     return random.choice(text)
 
 # Generates a sentence with n-grams
-def generate(x, text):
+def generate_sent(x, text):
     sentence = []
     counts = ngram_count(x, text)
     next = '<s>' # <s> is first token of each sentence
-    while '</s>' not in next and len(sentence) < 15: # threshold = 100 tokens
+    while '</s>' not in next and len(sentence) < 10: # threshold = 100 tokens
         sentence.append(next)
         next = next_word(x, (' '.join(sentence[-(x-1):])), counts, text)
     while '<s>' in sentence: sentence.remove('<s>')
-    print(' '.join(sentence))
+    return str(' '.join(sentence))
 
 ########################################################
 # uncomment out each section to run 
-
+        
 corpus = []
-# Question 2.1
-'''
-corpus = open("text.txt").read().split()
-find_count(1, corpus, 10)
-print('')
-find_count(2, corpus, 10)
-'''
-# Question 2.2
-'''
-corpus = open("text.txt").read().split()
-find_prob(2, corpus, 10)
-'''
-# Question 2.3
-'''
-for i in open("moviereview.txt").read().splitlines():
-    corpus.append("<s>")
-    corpus.extend(i.split())
-    corpus.append("</s>")
-find_prob(3, corpus, 20)
-'''
-# Question 2.4
-
 import nltk
-sentences = nltk.sent_tokenize(open('category_corpus.txt', 'r').read())
-for i in sentences:
-    corpus.append("<s>")
-    corpus.extend(nltk.word_tokenize(i))
-    corpus.append("</s>")
-for i in range(10):
-    generate(4, corpus)
+def preprocess():
+    sentences = nltk.sent_tokenize(open('category_corpus.txt', 'r').read())
+    for i in sentences:
+        corpus.append("<s>")
+        corpus.extend(nltk.word_tokenize(i))
+        corpus.append("</s>")
+    return corpus
 
