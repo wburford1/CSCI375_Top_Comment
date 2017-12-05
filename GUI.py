@@ -30,9 +30,10 @@ class classifier:
         def compare():
             ## do things here
             ## e1.get and e2.get can help get the user input
-            choice = classifier.choose(e1.get(), e2.get()).choice + 1
-            string = str(choice)
-            string += " is better"
+            # video ID here is randomly hard coded in
+            classification = classifier.choose(e1.get(), e2.get(), 'YYwB63YslbA')
+            string = str(classification.choice+1)
+            string += " is better. {}% conf".format(round(classification.confidence*100))
             message.set(string)
 
         ## This frame contains all the buttons
