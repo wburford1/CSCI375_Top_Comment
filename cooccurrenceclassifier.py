@@ -4,7 +4,7 @@ from collections import namedtuple
 
 comment_sim = namedtuple('comment_sim', 'comment, similarity')
 
-class CooccurranceClassifier(Classifier):
+class CooccurrenceClassifier(Classifier):
     def choose(self, c1, c2, video_id):
         c1_vector = {k.lower():0 for k in set(nltk.word_tokenize(c1))}
         c2_vector = {k.lower():0 for k in set(nltk.word_tokenize(c2))}

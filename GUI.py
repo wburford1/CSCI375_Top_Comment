@@ -1,5 +1,5 @@
 from tkinter import *
-from cooccurranceclassifier import CooccurranceClassifier
+from cooccurrenceclassifier import CooccurrenceClassifier
 import json
 from collections import namedtuple
 
@@ -9,20 +9,20 @@ class classifier:
 
     def __init__(self, master, classifier):
 
-        ## First frame contains the intro and the textboxes 
+        ## First frame contains the intro and the textboxes
         frame = Frame(master)
         frame.pack()
-        
+
         label = Label(frame, text = "Which comment is better?")
         label.pack()
-        
+
         ## Entry allows the backend to receive user input
         e1 = Entry(frame)
         e1.pack(side = LEFT)
 
         e2 = Entry(frame)
         e2.pack(side = LEFT)
-        
+
         ## Message displays which comment is better
         message = StringVar()
         Label(master, textvariable = message).pack()
@@ -34,7 +34,7 @@ class classifier:
             string = str(choice)
             string += " is better"
             message.set(string)
-        
+
         ## This frame contains all the buttons
         frame_buttons = Frame(master)
         frame_buttons.pack()
@@ -50,7 +50,7 @@ class classifier:
 class generator:
 
     def __init__(self, master):
-        
+
         ## This frame contains title
         frame_title = Frame(master)
         frame_title.pack()
@@ -64,23 +64,23 @@ class generator:
         ## This frame contains tags
         frame_tags = Frame(master)
         frame_tags.pack()
-        
+
         tags = Label(frame_tags, text = "Tags: ")
         tags.pack(side = LEFT)
 
         e2 = Entry(frame_tags)
         e2.pack(side = LEFT)
 
-        ## This frame contains category        
+        ## This frame contains category
         frame_category = Frame(master)
         frame_category.pack()
-      
+
         category = Label(frame_category, text = "Category: ")
         category.pack(side = LEFT)
 
         e3 = Entry(frame_category)
         e3.pack(side = LEFT)
-        
+
         ## Message allows us to return the generated message
         message = StringVar()
         Label(master, textvariable = message).pack()
@@ -104,8 +104,8 @@ class generator:
         generate_button.pack(side = LEFT)
 
 if __name__ == '__main__':
-    
-    with open('video_dict.json') as video:  
+
+    with open('video_dict.json') as video:
         video_dict_raw = json.load(video)
     video_dict = {}
     for key in video_dict_raw:
@@ -117,8 +117,8 @@ if __name__ == '__main__':
                     video_dict[key].append(comment(str(com_thing[0]), int(com_thing[1])))
                 except ValueError:
                     1+1
-    cooccur = CooccurranceClassifier(video_dict)
-    root = Tk() 
+    cooccur = CooccurrenceClassifier(video_dict)
+    root = Tk()
     app = classifier(root, cooccur)
     root.mainloop()
     root.destroy()
