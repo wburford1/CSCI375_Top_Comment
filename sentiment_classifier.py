@@ -33,7 +33,8 @@ def sent_sentiment(dict):
         sent_dict[k] = np.mean(list)
     return sent_dict
 
-def compare_sent(video_id, dict, sent1, sent2):
+def compare_sent(video_id, sent1, sent2):
+    dict = sent_sentiment(video_dict)
     sent_score = dict[video_id]
     sid = SentimentIntensityAnalyzer()
     ss1 = abs(sid.polarity_scores(sent1)['compound'] - sent_score)
@@ -41,6 +42,6 @@ def compare_sent(video_id, dict, sent1, sent2):
     if ss1 < ss2: return 1
     else: return 2
 
-print(compare_sent('3WEvgqcP8mg', sent_sentiment(video_dict), 'this is terrible', 'this is great sentence'))
+print(compare_sent('3WEvgqcP8mg', 'this is terrible', 'this is great sentence'))
 
 
