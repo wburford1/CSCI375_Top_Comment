@@ -41,8 +41,6 @@ def compare_sent(video_id, dict, sent1, sent2):
     if ss1 < ss2: return 1
     else: return 2
 
-print(compare_sent('3WEvgqcP8mg', sent_sentiment(dict), 'this is terrible', 'this is great sentence'))
+print(compare_sent('3WEvgqcP8mg', sent_sentiment(video_dict), 'this is terrible', 'this is great sentence'))
 
-#sentence = "Iphone6 camera is awesome for low light "
-#tagged = pos_tag(word_tokenize(sentence))
-#print(tagged)
+

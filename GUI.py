@@ -1,8 +1,10 @@
 from tkinter import *
+from sentiment_classifier import compare_sent
 
 class classifier:
 
     def __init__(self, master):
+
 
         ## First frame contains the intro and the textboxes 
         frame = Frame(master)
@@ -24,8 +26,9 @@ class classifier:
 
         def compare():
             ## do things here
-            ## e1.get and e2.get can help get the user input
-            message.set("The first one is better!")
+            choice = compare_sent(e1.get(), e2.get())
+            string = str(choice) + " is better"
+            message.set(string)
         
         ## This frame contains all the buttons
         frame_buttons = Frame(master)
@@ -98,6 +101,6 @@ class generator:
 if __name__ == '__main__':
     
     root = Tk()
-    generator = generator(root)
+    app = classifier(root)
     root.mainloop()
     root.destroy()
