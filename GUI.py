@@ -1,8 +1,13 @@
-from Tkinter import *
+from tkinter import *
+from cooccurranceclassifier import CooccurranceClassifier
+import json
+from collections import namedtuple
+
+comment = namedtuple('comment', 'content, likes')
 
 class classifier:
 
-    def __init__(self, master):
+    def __init__(self, master, classifier):
 
         ## First frame contains the intro and the textboxes 
         frame = Frame(master)
@@ -25,7 +30,10 @@ class classifier:
         def compare():
             ## do things here
             ## e1.get and e2.get can help get the user input
-            message.set("The first one is better!")
+            choice = classifier.choose(e1.get(), e2.get()).choice + 1
+            string = str(choice)
+            string += " is better"
+            message.set(string)
         
         ## This frame contains all the buttons
         frame_buttons = Frame(master)
@@ -97,7 +105,20 @@ class generator:
 
 if __name__ == '__main__':
     
-    root = Tk()
-    generator = generator(root)
+    with open('video_dict.json') as video:  
+        video_dict_raw = json.load(video)
+    video_dict = {}
+    for key in video_dict_raw:
+            # if key in ['TPnuT2TLvLQ', '_qb4_uvYSG0', 'YYwB63YslbA', 'CiHV9oFXFzY', 'j-JOG2mUt0c']:
+            video_dict[key] = []
+            for com_thing in video_dict_raw[key]:
+                try:
+                    int(com_thing[1])
+                    video_dict[key].append(comment(str(com_thing[0]), int(com_thing[1])))
+                except ValueError:
+                    1+1
+    cooccur = CooccurranceClassifier(video_dict)
+    root = Tk() 
+    app = classifier(root, cooccur)
     root.mainloop()
     root.destroy()
