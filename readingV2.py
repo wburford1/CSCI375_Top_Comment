@@ -34,7 +34,7 @@ def readvideos():
     columns = ['video_id', 'title', 'channel_title', 'category_id',
               'tags', 'views', 'likes', 'dislikes', 'comment_total',
               'thumbnail_link', 'date']
-    us_vid_df = pd.read_csv('/Users/refstudent/Downloads/CSCI375_Top_Comment-master/youtube/USvideos.csv',usecols = columns, encoding = 'utf8', error_bad_lines = False)
+    us_vid_df = pd.read_csv('youtube/USvideos.csv',usecols = columns, encoding = 'utf8', error_bad_lines = False)
     video_dict = {}
     for i in range(len(us_vid_df['video_id'])):
         if us_vid_df['video_id'][i] in video_dict:
