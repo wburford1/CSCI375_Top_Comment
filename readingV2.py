@@ -82,6 +82,3 @@ if __name__ == '__main__':
     with open('tags_dict.json', 'w',encoding='UTF-8') as f:
         json.dump(tags_dict, f, cls=MyEncoder)
 
-
-
-    
