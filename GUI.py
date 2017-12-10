@@ -40,7 +40,7 @@ class classifier:
         def compare():
             ## do things here
             choice = compare_sent(e_id.get(), e1.get(), e2.get())
-            string = "Based on our SCIENTIFIC CALCULATION " + str(choice) + " is better"
+            string = "Based on our SCIENTIFIC CALCULATION: " + str(choice) + " is better"
             message.set(string)
         
         ## This frame contains all the buttons
@@ -115,5 +115,10 @@ if __name__ == '__main__':
     
     root = Tk()
     app = classifier(root)
+    root.mainloop()
+    root.destroy()
+
+    root = Tk()
+    app = generator(root)
     root.mainloop()
     root.destroy()
