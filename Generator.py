@@ -31,7 +31,9 @@ def corpus_generation(name):
 	corpus = corpus_processing(category_generator(name))
 	with open('category_corpus.txt', 'w') as f:
 		for e in corpus: 
-			f.write(e)
+			f.write(str(e) +'\n')
+
+
 
 #print(tags_dict)
 #print(title_dict)

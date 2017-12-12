@@ -3,6 +3,8 @@ from sentiment_classifier import compare_sent
 from LM import preprocess, generate_sent
 from Generator import corpus_generation
 from jsonTest import process_text
+
+#tkinter doesn't have certain emojis, so when it does comments it might skip some of the emojis
 class classifier:
 
     def __init__(self, master):
@@ -88,7 +90,11 @@ class generator:
             ## Use set to set output
             category = e3.get()
             corpus_generation(process_text(category))
-            message.set(generate_sent(5, preprocess())+"\n"+ generate_sent(4, preprocess())+"\n"+generate_sent(4, preprocess()))
+            corpus = preprocess()
+            with open('comment_generated.txt', 'w') as f:
+                for i in range(100):
+                    f.write(str(i)+ ': '+ generate_sent(5, corpus)+'\n')
+                    message.set(i)
 
         ## This frame contains the buttons
         frame_buttons = Frame(master)

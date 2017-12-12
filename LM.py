@@ -9,6 +9,8 @@ tongyu zhou
 import math
 import operator
 import random
+import string
+import re
 from collections import Counter
 
 # Stores n-gram counts for any n for any given corpus
@@ -59,7 +61,7 @@ def generate_sent(x, text):
     sentence = []
     counts = ngram_count(x, text)
     next = '<s>' # <s> is first token of each sentence
-    while '</s>' not in next and len(sentence) < 10: # threshold = 100 tokens
+    while '</s>' not in next and len(sentence) < 20: # threshold = 100 tokens
         sentence.append(next)
         next = next_word(x, (' '.join(sentence[-(x-1):])), counts, text)
     while '<s>' in sentence: sentence.remove('<s>')
@@ -67,14 +69,15 @@ def generate_sent(x, text):
 
 ########################################################
 # uncomment out each section to run 
-        
+
+#replace nltk tokenizer with regular expression tokenizer
 corpus = []
 import nltk
 def preprocess():
     sentences = nltk.sent_tokenize(open('category_corpus.txt', 'r').read())
     for i in sentences:
         corpus.append("<s>")
-        corpus.extend(nltk.word_tokenize(i))
+        corpus.extend(re.findall("[A-Z]{2,}(?![a-z])|[A-Z][a-z]+(?=[A-Z])|[\'\w\-]+", i))
         corpus.append("</s>")
     return corpus
 
