@@ -16,10 +16,23 @@ class classifier:
 
 
         ## First frame contains the intro and the textboxes 
+        frame_id = Frame(master)
+        frame_id.pack()         
+
+        lab = Label(frame_id, text = "Which comment would get more likes?")
+        lab.pack()
+
+        lab_id = Label(frame_id, text = "Input your video ID")
+        lab_id.pack(side = LEFT)
+
+        e_id = Entry(frame_id)
+        e_id.insert(END, '3WEvgqcP8mg')
+        e_id.pack(side = LEFT)
+
         frame = Frame(master)
         frame.pack()
         
-        label = Label(frame, text = "Which comment is better?")
+        label = Label(frame, text = "Input your comments")
         label.pack()
         
         ## Entry allows the backend to receive user input
@@ -35,8 +48,8 @@ class classifier:
 
         def compare():
             ## do things here
-            choice = compare_sent(e1.get(), e2.get())
-            string = str(choice) + " is better"
+            choice = compare_sent(e_id.get(), e1.get(), e2.get())
+            string = "Based on our SCIENTIFIC CALCULATION " + str(choice) + " is better"
             message.set(string)
         
         ## This frame contains all the buttons
