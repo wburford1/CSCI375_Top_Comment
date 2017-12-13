@@ -4,7 +4,7 @@ from collections import namedtuple
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.corpus import sentiwordnet as swn
 from nltk import word_tokenize
-from text.classifiers import NaiveBayesClassifier
+from nltk import NaiveBayesClassifier
 
 with open('video_dict.json') as json_data:
     video_dict = json.load(json_data)
@@ -32,14 +32,14 @@ def SentimentClassifier(sent):
         likes = s[2]
         difference = abs(ss1 - ss2)
         dict[difference] = likes
-    classifier = nltk.NaiveBayesClassifier.train(dict)
+    classifier = NaiveBayesClassifier.train(dict)
     classifier.show_most_informative_features()
     return classifier
 
 def test(classifier, sent1, sent2):
     sid = SentimentIntensityAnalyzer()
-    ss1 = abs(sid.polarity_scores(sent1)['compound']
-    ss2 = abs(sid.polarity_scores(sent2)['compound']
+    ss1 = abs(sid.polarity_scores(sent1)['compound'])
+    ss2 = abs(sid.polarity_scores(sent2)['compound'])
     return classifier.classify(abs(ss1-ss2))
 
 #print(compare_sent('3WEvgqcP8mg', 'this is terrible', 'this is great sentence'))

@@ -2,7 +2,7 @@ from tkinter import *
 from cooccurrenceclassifier import CooccurrenceClassifier
 import json
 from collections import namedtuple
-from sentiment_classifier import compare_sent
+from sentiment_classifier import SentimentClassifier
 from LM import preprocess, generate_sent
 from Generator import corpus_generation
 from jsonTest import process_text
@@ -140,8 +140,8 @@ if __name__ == '__main__':
                 except ValueError:
                     1+1
     cooccur = CooccurrenceClassifier(video_dict)
-    root = Tk()
-    app = classifier(root, cooccur)
+    #root = Tk()
+    #app = classifier(root, cooccur)
     root = Tk()
     app = generator(root)
     root.mainloop()
