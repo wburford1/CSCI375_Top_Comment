@@ -3,6 +3,8 @@
 import json
 from collections import namedtuple
 from cooccurrenceclassifier import CooccurrenceClassifier
+from sentiment_classifier import SentimentClassifier
+
 
 comment = namedtuple('comment', 'content, likes')
 
