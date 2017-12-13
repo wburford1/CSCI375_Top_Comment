@@ -33,4 +33,4 @@ clean-zip:
 	python3 read_zip_data.py clean
 
 read:
-	python3 read.py
+	python3 readingV2.py
