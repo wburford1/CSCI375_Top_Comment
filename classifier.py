@@ -8,7 +8,7 @@ class Classifier:
         self.videos_dict = videos_dict
 
     # should return 0 if c1, 1 if c2 and a confidence packaged in the classification namedtuple
-    def choose(self, c1, c2):
+    def choose(self, c1, c2, video_id):
         raise NotImplementedError
 
     @staticmethod

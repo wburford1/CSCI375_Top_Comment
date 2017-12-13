@@ -2,7 +2,7 @@
 # It then aggregates each classifier's vote to decide which video will recieve the most likes.
 import json
 from collections import namedtuple
-from cooccurranceclassifier import CooccurranceClassifier
+from cooccurrenceclassifier import CooccurrenceClassifier
 
 comment = namedtuple('comment', 'content, likes')
 
@@ -21,7 +21,7 @@ if __name__ == '__main__':
                     1+1
 
         all_classifiers = [
-            CooccurranceClassifier(videos_dict)
+            CooccurrenceClassifier(videos_dict)
         ]
         coms = [
             ('I really like this video.', "This was the worst video I've ever seen!")
@@ -31,7 +31,7 @@ if __name__ == '__main__':
             print('Comment 1: "{}"\nComment 2: "{}"'.format(comment_set[0], comment_set[1]))
             results = []
             for classifier in all_classifiers:
-                results.append(classifier.choose(comment_set[0], comment_set[1]))
+                results.append(classifier.choose(comment_set[0], comment_set[1], 'YYwB63YslbA'))
             r_counter = 0
             for res in results:
                 r_counter += 1

@@ -12,7 +12,6 @@ with open('video_dict.json') as video:
     video_dict = json.load(video)
 
 def choose(video_id, c1, c2):
-    #print(video_dict[video_id])
     comments = ' '.join([comment[0] for comment in video_dict[video_id]])
     bow = get_bag(comments, 10)
     feature = features(video_dict[video_id], bow)
