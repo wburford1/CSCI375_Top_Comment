@@ -33,9 +33,11 @@ def sent_sentiment(dict):
         sent_dict[k] = list
     return sent_dict
 
-print(sent_sentiment(video_dict))
+def compare_sent(sent1, sent2):
+    sid = SentimentIntensityAnalyzer()
+    ss1 = sid.polarity_scores(sent1)
+    ss2 = sid.polarity_scores(sent2)
+    if ss1['compound'] > ss2['compound']: return 1
+    else: return 2
 
 
-#sentence = "Iphone6 camera is awesome for low light "
-#tagged = pos_tag(word_tokenize(sentence))
-#print(tagged)

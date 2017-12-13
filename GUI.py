@@ -2,12 +2,18 @@ from tkinter import *
 from cooccurranceclassifier import CooccurranceClassifier
 import json
 from collections import namedtuple
+from sentiment_classifier import compare_sent
+from LM import preprocess, generate_sent
+from Generator import corpus_generation
+from jsonTest import process_text
 
 comment = namedtuple('comment', 'content, likes')
 
+#tkinter doesn't have certain emojis, so when it does comments it might skip some of the emojis
 class classifier:
 
     def __init__(self, master, classifier):
+
 
         ## First frame contains the intro and the textboxes 
         frame = Frame(master)
@@ -29,10 +35,8 @@ class classifier:
 
         def compare():
             ## do things here
-            ## e1.get and e2.get can help get the user input
-            choice = classifier.choose(e1.get(), e2.get()).choice + 1
-            string = str(choice)
-            string += " is better"
+            choice = compare_sent(e1.get(), e2.get())
+            string = str(choice) + " is better"
             message.set(string)
         
         ## This frame contains all the buttons
@@ -89,7 +93,13 @@ class generator:
             ## do things here
             ## Use e1.get, e2.get to get user input
             ## Use set to set output
-            message.set(e1.get())
+            category = e3.get()
+            corpus_generation(process_text(category))
+            corpus = preprocess()
+            with open('comment_generated.txt', 'w') as f:
+                for i in range(100):
+                    f.write(str(i)+ ': '+ generate_sent(5, corpus)+'\n')
+                    message.set(i)
 
         ## This frame contains the buttons
         frame_buttons = Frame(master)
@@ -120,5 +130,7 @@ if __name__ == '__main__':
     cooccur = CooccurranceClassifier(video_dict)
     root = Tk() 
     app = classifier(root, cooccur)
+    root = Tk()
+    app = generator(root)
     root.mainloop()
     root.destroy()
