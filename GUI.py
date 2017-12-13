@@ -108,10 +108,13 @@ class generator:
             category = e3.get()
             corpus_generation(process_text(category))
             corpus = preprocess()
-            with open('comment_generated.txt', 'w') as f:
-                for i in range(100):
-                    f.write(str(i)+ ': '+ generate_sent(5, corpus)+'\n')
-                    message.set(i)
+            final_text = [generate_sent(5, corpus)for i in range(100)]
+            with open('comment_generated.json', 'w') as f:
+                json.dump(final_text, f)
+            text = ""
+            for e in final_text:
+                text += str(e)+ '\n'
+            message.set(text) 
 
         ## This frame contains the buttons
         frame_buttons = Frame(master)
