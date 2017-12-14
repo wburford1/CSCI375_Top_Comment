@@ -13,7 +13,6 @@ def cooccurrence_classifier(video_dict, video_id):
     bow = get_bag(comments, 20)
     feature = features(video_dict[video_id], bow)
     feature_combo = [(dict(combo[0][0], **(combo[1][0])), (1 if combo[0][1] > combo[1][1] else 0)) for combo in list(combinations(feature, 2)) if combo[0][1] != combo[1][1]]
-    print(feature_combo[1])
     classifier = nltk.NaiveBayesClassifier.train(feature_combo)
     print(nltk.classify.accuracy(classifier, feature_combo))    
     return classifier 
@@ -22,10 +21,6 @@ def cooccurrence_test(classifier, c1, c2):
     c1_feature = {word : (1 if word in c1.split(' ') else 0) for word in bow}
     c2_feature = {word : (1 if word in c1.split(' ') else 0) for word in bow}
     return classifier.classify(c1_feature.update(c2_feature))
-
-
-
-
 
 def window(x, indices, window_size): 
     '''pick the window according to window size'''

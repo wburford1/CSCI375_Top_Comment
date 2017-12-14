@@ -7,6 +7,7 @@ from cooccurrence import cooccurrence_classifier, cooccurrence_test
 
 
 comment = namedtuple('comment', 'content, likes')
+video = namedtuple('video', 'id, title, like_count')
 
 def ensemble(video_dict, video_id, c1, c2):
     classifier_sent = sent_classifier(video_dict, video_id)
@@ -17,7 +18,7 @@ def ensemble(video_dict, video_id, c1, c2):
     print(cooccur_classified)
 
 
-if __name__ == '__main__':
+def parse_video_dict():
     with open('video_dict.json', 'r') as f:
         video_dict_raw = json.load(f)
         video_dict = {}
@@ -29,7 +30,20 @@ if __name__ == '__main__':
                     int(com_thing[1])
                     video_dict[key].append(comment(str(com_thing[0]), int(com_thing[1])))
                 except ValueError:
-                    1 + 1               
+                    1 + 1
+    return video_dict
+
+def parse_category_dict():
+    with open('category_dict.json', 'r') as f:
+        category_dict_raw = json.load(f)
+        category_dict = {}
+        for video in category_dict_raw:
+            vid_id = video[0]
+            category_dict[vid_id] = video(vid_id, video[1], video[2])
+    return category_dict
+
+if __name__ == '__main__':   
+    video_dict = parse_video_dict()
+    #meta_data_dict = parse_category_dict()
     ensemble(video_dict, 'cLdxuaxaQwc', "It's okay Pewds, you still my nigga <3", "dwdw")
-    
 
