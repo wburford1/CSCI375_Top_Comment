@@ -36,7 +36,7 @@ def get_bag(x, threshold):
     '''get the bag of words'''
     bag_of_words = Counter(word_tokenize(x))
     bag_of_words = [key for key, value in bag_of_words.items() if value >= threshold]
-    return bag_of_words 
+    return bag_of_words
 
 
 def features(x, bag):
@@ -65,4 +65,3 @@ def scores(classifier, test, ids):
     print("f-1 score: " + str(f_1))
 
     return({"precision":p, "recall":r, "f_1":f_1, "accuracy":accuracy})
-
