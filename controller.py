@@ -13,7 +13,7 @@ def ensemble(video_dict, video_id, c1, c2):
     classifier_sent = sent_classifier(video_dict, video_id)
     sent_classified = sent_test(classifier_sent, c1, c2)
     classifier_cooccur = cooccurrence_classifier(video_dict, video_id)
-    cooccur_classified = cooccurrence_test(classifier_cooccur, c1, c2)
+    cooccur_classified = cooccurrence_test(video_dict, video_id, classifier_cooccur, c1, c2)
     print(sent_classified)
     print(cooccur_classified)
 

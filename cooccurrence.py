@@ -10,17 +10,21 @@ import nltk
 
 def cooccurrence_classifier(video_dict, video_id):
     comments = ' '.join([comment[0] for comment in video_dict[video_id]])
-    bow = get_bag(comments, 20)
+    bow = get_bag(comments, 5)
     feature = features(video_dict[video_id], bow)
-    feature_combo = [(dict(combo[0][0], **(combo[1][0])), (1 if combo[0][1] > combo[1][1] else 0)) for combo in list(combinations(feature, 2)) if combo[0][1] != combo[1][1]]
+    #feature_combo = [(dict(combo[0][0], **(combo[1][0])), (1 if combo[0][1] > combo[1][1] else 0)) for combo in list(combinations(feature, 2)) if combo[0][1] != combo[1][1]]
+    feature_combo = [({'diff':sum(combo[0][0].values()) - sum(combo[1][0].values())}, (1 if combo[0][1] > combo[1][1] else 0)) for combo in list(combinations(feature, 2)) if combo[0][1] != combo[1][1]]
     classifier = nltk.NaiveBayesClassifier.train(feature_combo)
     print(nltk.classify.accuracy(classifier, feature_combo))    
     return classifier 
 
-def cooccurrence_test(classifier, c1, c2):
+def cooccurrence_test(video_dict, video_id, classifier, c1, c2):
+    comments = ' '.join([comment[0] for comment in video_dict[video_id]])
+    bow = get_bag(comments, 20)
     c1_feature = {word : (1 if word in c1.split(' ') else 0) for word in bow}
     c2_feature = {word : (1 if word in c1.split(' ') else 0) for word in bow}
-    return classifier.classify(c1_feature.update(c2_feature))
+    c1_feature.update(c2_feature)
+    return classifier.classify(c1_feature)
 
 def window(x, indices, window_size): 
     '''pick the window according to window size'''
@@ -31,7 +35,7 @@ def window(x, indices, window_size):
 def get_bag(x, threshold):
     '''get the bag of words'''
     bag_of_words = Counter(word_tokenize(x))
-    bag_of_words = [key for key, value in bag_of_words.iteritems() if value >= threshold]
+    bag_of_words = [key for key, value in bag_of_words.items() if value >= threshold]
     return bag_of_words 
 
 def features(x, bag):
@@ -61,4 +65,3 @@ def scores(classifier, test, ids):
 
     return({"precision":p, "recall":r, "f_1":f_1, "accuracy":accuracy})
 
-#choose('cLdxuaxaQwc', "It's okay Pewds, you still my nigga <3", "dwdw")
