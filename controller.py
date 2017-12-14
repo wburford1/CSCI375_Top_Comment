@@ -25,7 +25,7 @@ if __name__ == '__main__':
                         1+1
 
             all_classifiers = [
-                CooccurranceClassifier(videos_dict)
+                CooccurrenceClassifier(videos_dict)
             ]
             coms = [
                 ('I really like this video.', "This was the worst video I've ever seen!")
