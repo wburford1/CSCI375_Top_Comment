@@ -37,13 +37,13 @@ def parse_category_dict():
     with open('category_dict.json', 'r') as f:
         category_dict_raw = json.load(f)
         category_dict = {}
-        for video in category_dict_raw:
-            vid_id = video[0]
-            category_dict[vid_id] = video(vid_id, video[1], video[2])
+        for cat_id in category_dict_raw:
+            for v in category_dict_raw[cat_id]:
+                vid_id = v[0]
+                category_dict[vid_id] = video(vid_id, v[1], v[2])
     return category_dict
 
-if __name__ == '__main__':   
+if __name__ == '__main__':
     video_dict = parse_video_dict()
     #meta_data_dict = parse_category_dict()
     ensemble(video_dict, 'cLdxuaxaQwc', "It's okay Pewds, you still my nigga <3", "dwdw")
-
