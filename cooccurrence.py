@@ -15,8 +15,8 @@ def cooccurrence_classifier(video_dict, video_id):
     #feature_combo = [(dict(combo[0][0], **(combo[1][0])), (1 if combo[0][1] > combo[1][1] else 0)) for combo in list(combinations(feature, 2)) if combo[0][1] != combo[1][1]]
     feature_combo = [({'diff':sum(combo[0][0].values()) - sum(combo[1][0].values())}, (1 if combo[0][1] > combo[1][1] else 0)) for combo in list(combinations(feature, 2)) if combo[0][1] != combo[1][1]]
     classifier = nltk.NaiveBayesClassifier.train(feature_combo)
-    print(nltk.classify.accuracy(classifier, feature_combo))    
-    return classifier 
+    print(nltk.classify.accuracy(classifier, feature_combo))
+    return classifier
 
 def cooccurrence_test(video_dict, video_id, classifier, c1, c2):
     comments = ' '.join([comment[0] for comment in video_dict[video_id]])
@@ -26,17 +26,18 @@ def cooccurrence_test(video_dict, video_id, classifier, c1, c2):
     c1_feature.update(c2_feature)
     return classifier.classify(c1_feature)
 
-def window(x, indices, window_size): 
+def window(x, indices, window_size):
     '''pick the window according to window size'''
     windows = [context[index - window_size:index] + context[index + 1:index + window_size + 1]
             for context, index in zip(x, indices)]
-    return windows 
+    return windows
 
 def get_bag(x, threshold):
     '''get the bag of words'''
     bag_of_words = Counter(word_tokenize(x))
     bag_of_words = [key for key, value in bag_of_words.items() if value >= threshold]
     return bag_of_words 
+
 
 def features(x, bag):
     ## co-occurence
@@ -50,7 +51,7 @@ def scores(classifier, test, ids):
         refsets[label].add(i)
         observed = classifier.classify(feats)
         testsets[observed].add(i)
-    
+
     accuracy = nltk.classify.accuracy(classifier, test)
     print("accuracy: " + str(accuracy))
     p = filter(partial(is_not, None), [precision(refsets[sense], testsets[sense]) for sense in ids])
@@ -59,7 +60,7 @@ def scores(classifier, test, ids):
     r = filter(partial(is_not, None), [recall(refsets[sense], testsets[sense]) for sense in ids])
     r = sum(r) / len(r)
     print("recall: " + str(r) )
-    f_1 = filter(partial(is_not, None), [f_measure(refsets[sense], testsets[sense]) for sense in ids]) 
+    f_1 = filter(partial(is_not, None), [f_measure(refsets[sense], testsets[sense]) for sense in ids])
     f_1 = sum(f_1) / len(f_1)
     print("f-1 score: " + str(f_1))
 
