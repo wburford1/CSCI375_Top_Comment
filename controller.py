@@ -24,24 +24,6 @@ if __name__ == '__main__':
                     except ValueError:
                         1+1
 
-<<<<<<< 9b176b3a70792da16dcab34f1347afe74dcc2a81
-        all_classifiers = [
-            CooccurrenceClassifier(videos_dict)
-        ]
-        coms = [
-            ('I really like this video.', "This was the worst video I've ever seen!")
-        ]
-
-        for comment_set in coms:
-            print('Comment 1: "{}"\nComment 2: "{}"'.format(comment_set[0], comment_set[1]))
-            results = []
-            for classifier in all_classifiers:
-                results.append(classifier.choose(comment_set[0], comment_set[1], 'YYwB63YslbA'))
-            r_counter = 0
-            for res in results:
-                r_counter += 1
-                print('Classifier {} chose {} with {} confidence.'.format(r_counter, res.choice+1, res.confidence))
-=======
             all_classifiers = [
                 CooccurranceClassifier(videos_dict)
             ]
@@ -53,9 +35,8 @@ if __name__ == '__main__':
                 print('Comment 1: "{}"\nComment 2: "{}"'.format(comment_set[0], comment_set[1]))
                 results = []
                 for classifier in all_classifiers:
-                    results.append(classifier.choose(comment_set[0], comment_set[1]))
+                    results.append(classifier.choose(comment_set[0], comment_set[1], 'YYwB63YslbA'))
                 r_counter = 0
                 for res in results:
                     r_counter += 1
                     print('Classifier {} chose {} with {} confidence.'.format(r_counter, res.choice+1, res.confidence))
->>>>>>> read videoinfo in controller
