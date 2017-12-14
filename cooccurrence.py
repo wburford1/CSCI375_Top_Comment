@@ -31,7 +31,6 @@ def window(x, indices, window_size):
 def get_bag(x, threshold):
     '''get the bag of words'''
     bag_of_words = Counter(word_tokenize(x))
-    print("Bag = {}".format(bag_of_words))
     bag_of_words = [key for key in bag_of_words if bag_of_words[key] >= threshold]
     return bag_of_words
 
