@@ -12,8 +12,8 @@ def cooccurrence_classifier(video_dict, video_id):
     comments = ' '.join([comment[0] for comment in video_dict[video_id]])
     bow = get_bag(comments, 5)
     feature = features(video_dict[video_id], bow)
-    #feature_combo = [(dict(combo[0][0], **(combo[1][0])), (1 if combo[0][1] > combo[1][1] else 0)) for combo in list(combinations(feature, 2)) if combo[0][1] != combo[1][1]]
-    feature_combo = [({'diff':sum(combo[0][0].values()) - sum(combo[1][0].values())}, (1 if combo[0][1] > combo[1][1] else 0)) for combo in list(combinations(feature, 2)) if combo[0][1] != combo[1][1]]
+    feature_combo = [(dict(combo[0][0], **(combo[1][0])), (1 if combo[0][1] > combo[1][1] else 0)) for combo in list(combinations(feature, 2)) if combo[0][1] != combo[1][1]]
+    # feature_combo = [({'diff':sum(combo[0][0].values()) - sum(combo[1][0].values())}, (1 if combo[0][1] > combo[1][1] else 0)) for combo in list(combinations(feature, 2)) if combo[0][1] != combo[1][1]]
     classifier = nltk.NaiveBayesClassifier.train(feature_combo)
     print(nltk.classify.accuracy(classifier, feature_combo))
     return classifier
