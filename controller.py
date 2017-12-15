@@ -12,12 +12,13 @@ import random
 comment = namedtuple('comment', 'content, likes')
 video = namedtuple('video', 'id, title, like_count, cat_id')
 
-def ensemble_test(training_video_dict, testing_video_dict, video_id):
-    classifier_sent = sent_classifier(training_video_dict, video_id)
-    classifier_cooccur = cooccurrence_classifier(training_video_dict, video_id)
+def ensemble_test(training_video_dict, testing_video_dict, video_ids):
+    classifier_sent = sent_classifier(training_video_dict, video_ids)
+    classifier_cooccur = cooccurrence_classifier(training_video_dict, video_ids)
 
-    # print(training_video_dict[video_id][0])
-    test_pre = testing_video_dict[video_id]
+    test_pre = []
+    for vid in video_ids:
+        test_pre += testing_video_dict[vid]
     # print(test_pre)
     test_set = [(combo[0].content, combo[1].content, 0 if combo[0].likes > combo[1].likes else 1) for combo in list(combinations(test_pre, 2)) if combo[0].likes != combo[1].likes]
     sent_classified = []
@@ -28,9 +29,9 @@ def ensemble_test(training_video_dict, testing_video_dict, video_id):
     for pair in test_set:
         s = sent_test(classifier_sent, pair[0], pair[1])
         sent_classified.append(s)
-        c = cooccurrence_test(training_video_dict, video_id, classifier_cooccur, pair[0], pair[1])
+        c = cooccurrence_test(training_video_dict, video_ids, classifier_cooccur, pair[0], pair[1])
         cooccur_classified.append(c)
-        t = combine_classifiers(pair[0], pair[1], classifier_sent, classifier_cooccur, training_video_dict, video_id)
+        t = combine_classifiers(pair[0], pair[1], classifier_sent, classifier_cooccur, training_video_dict, video_ids)
         together_classified.append(t)
         correct.append(pair[2])
         # print('sent {}, cooc {}, correct {}'.format(s, c, pair[2]))
@@ -55,10 +56,11 @@ def ensemble_test(training_video_dict, testing_video_dict, video_id):
     print("It took {}m to classify {} combinations.".format((test_end - test_start)/60.0, len(test_set)))
 
 # use this when comparing to get to best generated comment
-def ensemble_run(video_dict, generated, video_id):
-    print('{} has {} comments to analyze.'.format(video_id, len(video_dict[video_id])))
-    classifier_sent = sent_classifier(video_dict, video_id)
-#    classifier_cooccur = cooccurrence_classifier(video_dict, video_id)
+def ensemble_run(video_dict, generated, video_ids):
+    for vid in video_ids:
+        print('{} has {} comments to analyze.'.format(vid, len(video_dict[vid])))
+    classifier_sent = sent_classifier(video_dict, video_ids)
+    classifier_cooccur = cooccurrence_classifier(video_dict, video_ids)
 
     # generated = generated[:16]
     matchups = list(combinations(generated, 2))
@@ -103,6 +105,4 @@ if __name__ == '__main__':
     splits = split_video_dict(video_dict)
     train_set = splits[0]
     test_set = splits[1]
-    # test_set = ("It's okay Pewds, you still my nigga <3", "dwdw", 0)
-    #meta_data_dict = parse_category_dict()
-    ensemble_test(train_set, test_set, 'cLdxuaxaQwc')
+    ensemble_test(train_set, test_set, ['cLdxuaxaQwc'])

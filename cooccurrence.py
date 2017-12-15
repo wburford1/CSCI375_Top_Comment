@@ -8,18 +8,24 @@ from itertools import combinations
 from nltk.tokenize import word_tokenize
 import nltk
 
-def cooccurrence_classifier(video_dict, video_id):
-    comments = ' '.join([comment[0] for comment in video_dict[video_id]])
+def cooccurrence_classifier(video_dict, video_ids):
+    all_comments = []
+    for vid in video_ids:
+        all_comments += video_dict[vid]
+    comments = ' '.join([comment[0] for comment in all_comments])
     bow = get_bag(comments, 5)
-    feature = features(video_dict[video_id], bow)
+    feature = features(all_comments, bow)
     feature_combo = [(dict(combo[0][0], **(combo[1][0])), (1 if combo[0][1] > combo[1][1] else 0)) for combo in list(combinations(feature, 2)) if combo[0][1] != combo[1][1]]
     # feature_combo = [({'diff':sum(combo[0][0].values()) - sum(combo[1][0].values())}, (1 if combo[0][1] > combo[1][1] else 0)) for combo in list(combinations(feature, 2)) if combo[0][1] != combo[1][1]]
     classifier = nltk.NaiveBayesClassifier.train(feature_combo)
     print(nltk.classify.accuracy(classifier, feature_combo))
     return classifier
 
-def cooccurrence_test(video_dict, video_id, classifier, c1, c2):
-    comments = ' '.join([comment[0] for comment in video_dict[video_id]])
+def cooccurrence_test(video_dict, video_ids, classifier, c1, c2):
+    all_comments = []
+    for vid in video_ids:
+        all_comments += video_dict[vid]
+    comments = ' '.join([comment[0] for comment in all_comments])
     bow = get_bag(comments, 20)
     c1_feature = {word : (1 if word in c1.split(' ') else 0) for word in bow}
     c2_feature = {word : (1 if word in c1.split(' ') else 0) for word in bow}

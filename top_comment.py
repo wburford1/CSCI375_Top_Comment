@@ -11,9 +11,8 @@ def top(category_id, video_dict, top_comments):
     videos = [videos[i] for i in sample(range(len(videos)), 4)]
     top_comments = [c.strip() for c in top_comments if not c.isspace() and c != ""]
     video_dict = parse_video_dict()
-    #best = ensemble_run(video_dict, top_comments, video_id)
-    #return ('Best comment is: {}'.format(best))
-    return 0
+    best = ensemble_run(video_dict, top_comments, videos)
+    return best
 
 if __name__ == '__main__':
     '''
@@ -29,4 +28,5 @@ if __name__ == '__main__':
         print('Best comment is: {}'.format(best))
         '''
     video_dict = parse_video_dict()
-    top("24", video_dict, ['awdawboir', 'dwaoirhiow'])
+    best = top("24", video_dict, ['awdawboir', 'dwaoirhiow'])
+    print('Best comment is: {}'.format(best))
