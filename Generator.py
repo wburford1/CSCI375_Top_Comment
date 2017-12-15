@@ -33,9 +33,7 @@ def corpus_generation(name):
         for e in corpus:
             f.write(str(e) +'\n')
 
-<<<<<<< HEAD
-corpus_generation('24')
-=======
+
 if __name__ == '__main__':
     # requires a category name to be passed in as the first command line arguement
     # ex. 'entertainment'
@@ -45,4 +43,3 @@ if __name__ == '__main__':
     final_text = [generate_sent(5, corpus)for i in range(100)]
     with open('comment_generated.json', 'w') as f:
         json.dump(final_text, f)
->>>>>>> 7fccb3acdeefa2991f40cedcf0c0f75b39ed2e33

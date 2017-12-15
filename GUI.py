@@ -1,18 +1,23 @@
 from tkinter import *
-from cooccurrenceclassifier import CooccurrenceClassifier
 import json
 from collections import namedtuple
-from sentiment_classifier import SentimentClassifier
+from cooccurrence import cooccurrence_classifier
+from sentiment_classifier import sent_classifier
 from LM import preprocess, generate_sent
 from Generator import corpus_generation
 from jsonTest import process_text
+from controller import combine_classifiers
 
 comment = namedtuple('comment', 'content, likes')
 
 #tkinter doesn't have certain emojis, so when it does comments it might skip some of the emojis
 class classifier:
+    
+    prev_id = ''
+    cooccur = None
+    sent = None
 
-    def __init__(self, master, classifier):
+    def __init__(self, master, video_dict):
 
         ## First frame contains the intro and the textboxes 
         frame_id = Frame(master)
@@ -25,7 +30,7 @@ class classifier:
         lab_id.pack(side = LEFT)
 
         e_id = Entry(frame_id)
-        e_id.insert(END, '3WEvgqcP8mg')
+        e_id.insert(END, 'cLdxuaxaQwc')
         e_id.pack(side = LEFT)
 
         frame = Frame(master)
@@ -47,7 +52,14 @@ class classifier:
 
         def compare():
             ## do things here
-            choice = compare_sent(e_id.get(), e1.get(), e2.get())
+            if e_id.get() != self.prev_id:
+                self.sent = sent_classifier(video_dict, e_id.get())
+                self.cooccur = cooccurrence_classifier(video_dict, e_id.get())
+                self.prev_id = e_id.get()
+                print(e_id.get())
+                
+            choice = combine_classifiers(e1.get(), e2.get(), self.sent, self.cooccur, video_dict, e_id.get())
+            #choice = cooccurrence_test(video_dict, e_id.get(), self.cooccur, e1.get(), e2.get())            
             string = "Based on our SCIENTIFIC CALCULATION " + str(choice) + " is better"
             message.set(string)
 
@@ -129,7 +141,7 @@ class generator:
         generate_button.pack(side = LEFT)
 
 if __name__ == '__main__':
-
+    
     with open('video_dict.json') as video:
         video_dict_raw = json.load(video)
     video_dict = {}
@@ -142,10 +154,20 @@ if __name__ == '__main__':
                     video_dict[key].append(comment(str(com_thing[0]), int(com_thing[1])))
                 except ValueError:
                     1+1
-    cooccur = CooccurrenceClassifier(video_dict)
-    #root = Tk()
-    #app = classifier(root, cooccur)
-    root = Tk()
-    app = generator(root)
+                    
+    root = Tk()  
+    input_raw = input("classify or generate: ")
+    print('aabb')
+    if str(input_raw) == 'generate':
+        app = generator()
+    elif str(input_raw) == 'classify':
+        app = classifier(root, video_dict) 
+    else:
+        while str(input_raw) != 'generate' and str(input_raw) != 'classify':
+            input_raw = input("classify or generate: ")
+            if str(input_raw) == 'generate':
+                app = generator()
+            elif str(input_raw) == 'classify':
+                app = classifier(root, video_dict)  
     root.mainloop()
     root.destroy()
