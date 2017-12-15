@@ -164,7 +164,7 @@ if __name__ == '__main__':
         while str(input_raw) != 'generate' and str(input_raw) != 'classify':
             input_raw = input("classify or generate: ")
             if str(input_raw) == 'generate':
-                app = generator()
+                app = generator(root)
             elif str(input_raw) == 'classify':
                 app = classifier(root, video_dict)  
     root.mainloop()
