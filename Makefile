@@ -42,4 +42,4 @@ generate:
 	python3 Generator.py Entertainment
 
 run:
-	python3 top_comment.py ZQK1F0wz6z4
+	python3 top_comment.py

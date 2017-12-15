@@ -17,9 +17,12 @@ def not_int(s):
     except ValueError:
         return True
 
-def sent_classifier(video_dict, video_id):
+def sent_classifier(video_dict, video_ids):
     sid = SentimentIntensityAnalyzer()
-    sent_dict = [(sid.polarity_scores(comment[0])['compound'], comment[1]) for comment in video_dict[video_id]]
+    all_comments = []
+    for vid in video_ids:
+        all_comments += video_dict[vid]
+    sent_dict = [(sid.polarity_scores(comment[0])['compound'], comment[1]) for comment in all_comments]
     # print(sent_dict)
     ## combo is a tuple containing the combined pair
     ## combo[n] indicates the n-th element in that combo
