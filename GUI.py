@@ -56,11 +56,11 @@ class classifier:
         def compare():
 
             if e_id.get() != self.prev_id:
-                self.sent = sent_classifier(video_dict, e_id.get())
-                self.cooccur = cooccurrence_classifier(video_dict, e_id.get())
+                self.sent = sent_classifier(video_dict, [e_id.get()])
+                self.cooccur = cooccurrence_classifier(video_dict, [e_id.get()])
                 self.prev_id = e_id.get()
                 
-            choice = combine_classifiers(e1.get(), e2.get(), self.sent, self.cooccur, video_dict, e_id.get())
+            choice = combine_classifiers(e1.get(), e2.get(), self.sent, self.cooccur, video_dict, [e_id.get()]) + 1
             string = "Based on our SCIENTIFIC CALCULATION " + str(choice) + " is better"
             message.set(string)
 
