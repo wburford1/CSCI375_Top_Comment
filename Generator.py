@@ -17,7 +17,7 @@ def category_generator(name):
         try:
             category_corpus.append(video_dict[video[0]])
         except KeyError:
-            print("no Comment")
+            1 + 1
     return category_corpus
 
 def corpus_processing(category_corpus):

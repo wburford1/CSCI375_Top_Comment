@@ -6,7 +6,8 @@ from sentiment_classifier import sent_classifier
 from LM import preprocess, generate_sent
 from Generator import corpus_generation
 from jsonTest import process_text
-from controller import combine_classifiers
+from controller import combine_classifiers, parse_video_dict
+from markovchain import generate_markov
 
 comment = namedtuple('comment', 'content, likes')
 
@@ -75,6 +76,8 @@ class classifier:
         compare_button.pack(side=LEFT)
 
 class generator:
+    
+    prev_id = None
 
     def __init__(self, master):
 
@@ -117,14 +120,12 @@ class generator:
             ## Use e1.get, e2.get to get user input
             ## Use set to set output
             category = e3.get()
-            corpus_generation(process_text(category))
-            corpus = preprocess()
-            final_text = [generate_sent(5, corpus)for i in range(100)]
-            with open('comment_generated.json', 'w') as f:
-                json.dump(final_text, f)
-            text = ""
-            for e in final_text:
-                text += str(e)+ '\n'
+            if category != self.prev_id:
+                #corpus_generation(process_text(category))
+                self.prev_id = category
+            final_text = generate_markov()
+            print(final_text)
+            text = final_text[0]
             message.set(text) 
 
         ## This frame contains the buttons
@@ -141,23 +142,11 @@ class generator:
 
 if __name__ == '__main__':
     
-    with open('video_dict.json') as video:
-        video_dict_raw = json.load(video)
-    video_dict = {}
-    for key in video_dict_raw:
-            # if key in ['TPnuT2TLvLQ', '_qb4_uvYSG0', 'YYwB63YslbA', 'CiHV9oFXFzY', 'j-JOG2mUt0c']:
-            video_dict[key] = []
-            for com_thing in video_dict_raw[key]:
-                try:
-                    int(com_thing[1])
-                    video_dict[key].append(comment(str(com_thing[0]), int(com_thing[1])))
-                except ValueError:
-                    1+1
-                    
+    video_dict = parse_video_dict()          
     root = Tk()  
     input_raw = input("classify or generate: ")
     if str(input_raw) == 'generate':
-        app = generator()
+        app = generator(root)
     elif str(input_raw) == 'classify':
         app = classifier(root, video_dict) 
     else:
