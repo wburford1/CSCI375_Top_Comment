@@ -14,6 +14,11 @@ $ source venv/bin/activate
 ```
 You must run this last command every time you start a new terminal session so that you will be in the virtual environment and have the correct package versions!
 
+If the first make command fails when trying to create a virtual environment, try installing the packages globally and extracting the data manually by running:
+```
+pip3 install -r requirements.txt
+make extract-zip
+```
 To process the files so that they are ready for the program to ingest, run:
 ```
 make read
