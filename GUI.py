@@ -8,6 +8,8 @@ from Generator import corpus_generation
 from jsonTest import process_text
 from controller import combine_classifiers, parse_video_dict
 from markovchain import generate_markov
+from top_comment import top
+from random import sample
 
 comment = namedtuple('comment', 'content, likes')
 
@@ -78,9 +80,10 @@ class classifier:
 class generator:
     
     prev_id = None
+    video_dict = parse_video_dict()
 
     def __init__(self, master):
-
+        
         ## This frame contains title
         frame_title = Frame(master)
         frame_title.pack()
@@ -119,14 +122,12 @@ class generator:
             ## do things here
             ## Use e1.get, e2.get to get user input
             ## Use set to set output
-            category = e3.get()
-            if category != self.prev_id:
-                #corpus_generation(process_text(category))
-                self.prev_id = category
+            category = str(process_text(e3.get()))
             final_text = generate_markov()
-            print(final_text)
-            text = final_text[0]
-            message.set(text) 
+            #top_comment = top(category, self.video_dict, final_text)
+            text = final_text[sample(range(len(final_text)), 1)[0]]
+            print(text)
+            message.set(text)
 
         ## This frame contains the buttons
         frame_buttons = Frame(master)

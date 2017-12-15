@@ -10,6 +10,21 @@ with open('category_dict.json') as json_data:
 with open('video_dict.json') as json_data:
     video_dict = json.load(json_data)
 
+# n is the factor in which we decrease the smoothing in.
+# best is 1.
+def category_generator_likeSmoothing(name, n = 1):
+    category_corpus = []
+    for i in range(len(category_dict[name])):
+        video = category_dict[name][i]
+        print(video_dict[video[1]])
+        try:
+            while int(video_dict[video[1]])>=0:
+                category_corpus.append(video_dict[video[0]])
+                video_dict[video[1]] = int(video_dict[video[1]])-n
+        except KeyError:
+            1+1
+    return category_corpus
+
 def category_generator(name):
     category_corpus = []
     for i in range(len(category_dict[name])):
