@@ -1,4 +1,4 @@
-setup: setup-venv extract-zip read
+setup: setup-venv extract-zip
 
 clean: clean-venv clean-zip
 
@@ -34,3 +34,12 @@ clean-zip:
 
 read:
 	python3 read.py
+
+test:
+	python3 controller.py
+
+generate:
+	python3 Generator.py Entertainment
+
+run:
+	python3 top_comment.py
