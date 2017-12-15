@@ -1,4 +1,8 @@
 import json
+import sys
+from jsonTest import process_text
+from LM import preprocess, generate_sent
+
 
 with open('category_dict.json') as json_data:
     category_dict = json.load(json_data)
@@ -8,13 +12,13 @@ with open('video_dict.json') as json_data:
 
 def category_generator(name):
     category_corpus = []
-    for i in range(len(category_dict[name])):  
+    for i in range(len(category_dict[name])):
        	video = category_dict[name][i]
         try:
-            category_corpus.append(video_dict[video])
+            category_corpus.append(video_dict[video[0]])
         except KeyError:
             print("no Comment")
-    return category_corpus 
+    return category_corpus
 
 def corpus_processing(category_corpus):
     corpus =[]
@@ -26,6 +30,15 @@ def corpus_processing(category_corpus):
 def corpus_generation(name):
     corpus = corpus_processing(category_generator(name))
     with open('category_corpus.txt', 'w') as f:
-        for e in corpus: 
+        for e in corpus:
             f.write(str(e) +'\n')
 
+if __name__ == '__main__':
+    # requires a category name to be passed in as the first command line arguement
+    # ex. 'entertainment'
+    category_name = sys.argv[1]
+    corpus_generation(process_text(category_name))
+    corpus = preprocess()
+    final_text = [generate_sent(5, corpus)for i in range(100)]
+    with open('comment_generated.json', 'w') as f:
+        json.dump(final_text, f)
