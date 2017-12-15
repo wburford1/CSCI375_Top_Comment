@@ -11,7 +11,7 @@ def category_generator(name):
     for i in range(len(category_dict[name])):  
        	video = category_dict[name][i]
         try:
-            category_corpus.append(video_dict[video])
+            category_corpus.append(video_dict[video[0]])
         except KeyError:
             print("no Comment")
     return category_corpus 
@@ -29,3 +29,4 @@ def corpus_generation(name):
         for e in corpus: 
             f.write(str(e) +'\n')
 
+corpus_generation('24')
