@@ -87,16 +87,6 @@ def parse_video_dict():
                     1 + 1
     return video_dict
 
-def parse_category_dict():
-    with open('category_dict.json', 'r') as f:
-        category_dict_raw = json.load(f)
-        category_dict = {}
-        for cat_id in category_dict_raw:
-            for v in category_dict_raw[cat_id]:
-                vid_id = v[0]
-                category_dict[vid_id] = video(vid_id, v[1], v[2], cat_id)
-    return category_dict
-
 def split_video_dict(dic):
     seed = 0.5
     train = {}
