@@ -37,7 +37,9 @@ class MarkovChain:
         next_word = self._next(state)
         return str(state) + ' ' + str(self.babble(amount - 1, next_word))
 
-def generate(corpus):
+def generate_markov():
+
+    corpus = open("category_corpus.txt", 'r').read().splitlines()
     m = MarkovChain()
     i = 1
     comments = []
@@ -57,6 +59,6 @@ def generate(corpus):
 
 if __name__ == '__main__':
     
-    print(generate(open("category_corpus.txt", 'r').read().splitlines()))
+    print(generate())
     
 

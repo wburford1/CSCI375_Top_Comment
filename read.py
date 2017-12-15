@@ -33,7 +33,8 @@ def read_cat():
 
 
 if __name__ == '__main__':
-    category_dict = read_cat()
+
+    category_dict = read_cat() 
     with open('category_dict.json', 'w') as f:
         json.dump(category_dict, f)
 
