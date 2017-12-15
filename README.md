@@ -34,7 +34,6 @@ Now, the classifier can be trained and the best of the generated comments select
 ```
 make run
 ```
-We have selected an arbitrary video id to be passed to `top_comment.py` but this can also be changed by editing the `Makefile` to have a different video id.
 
 ## Classifier Testing
 We used a traditional 70-30 split to validate our classifier. To see the f1 score resulting from this, run:
