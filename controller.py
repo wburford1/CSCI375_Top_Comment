@@ -64,14 +64,14 @@ def ensemble_run(video_dict, generated, video_ids):
 
     # generated = generated[:16]
     matchups = list(combinations(generated, 2))
-    winners = [m[0] if combine_classifiers(m[0], m[1], classifier_sent, classifier_cooccur, video_dict, video_id) == 0 else m[1] for m in matchups]
+    winners = [m[0] if combine_classifiers(m[0], m[1], classifier_sent, classifier_cooccur, video_dict, video_ids) == 0 else m[1] for m in matchups]
     counts = Counter(winners)
     print(counts.most_common())
     return counts.most_common(1)[0][0]
 
-def combine_classifiers(c1, c2, sent, cooc, video_dict, video_id):
+def combine_classifiers(c1, c2, sent, cooc, video_dict, video_ids):
     s = sent_test(sent, c1, c2)
-    c = cooccurrence_test(video_dict, video_id, cooc, c1, c2)
+    c = cooccurrence_test(video_dict, video_ids, cooc, c1, c2)
     return c
 
 def parse_video_dict():
