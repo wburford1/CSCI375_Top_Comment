@@ -1,8 +1,0 @@
-import nltk
-
-corpus = open("rand_sent.txt", 'r').read().splitlines()
-for sent in corpus:
-    sent = sent.split()
-    parser = nltk.ChartParser(groucho_grammar, nltk.parse.BU_STRATEGY)
-    trees = parser.nbest_parse(sent, trace=2)
-    print(trees)
