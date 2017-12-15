@@ -33,19 +33,10 @@ def read_cat():
 
 
 if __name__ == '__main__':
-<<<<<<< HEAD
-
-    category_dict = read_cat() 
+    category_dict = read_cat()
     with open('category_dict.json', 'w') as f:
         json.dump(category_dict, f)
 
     video_dict = read_comments() 
-=======
-    category_dict = read_cat()
-    with open('category_dict.json', 'w') as f:
-        json.dump(category_dict, f)
-    
-    video_dict = read_comments()
->>>>>>> 7fccb3acdeefa2991f40cedcf0c0f75b39ed2e33
     with open('video_dict.json', 'w') as f:
         json.dump(video_dict, f)
