@@ -49,11 +49,10 @@ def generate(corpus):
             length = len(n)-2
             line = line + n[2:length] + ' '
         comments.append(line)
-        if i == 64:
-            return comments
         if i == 100: 
             with open("rand_sent.txt", "w") as text_file:
                 text_file.write('\n'.join(comments))
+            return(random.sample(comments, 64))
         i = i+1
 
 if __name__ == '__main__':
