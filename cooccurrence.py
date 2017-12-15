@@ -66,7 +66,5 @@ def scores(classifier, test, ids):
 
     return({"precision":p, "recall":r, "f_1":f_1, "accuracy":accuracy})
 
-with open('video_dict.json', 'r') as f:
-    video_dict = json.load(f)
-cooc = cooccurrence_classifier(video_dict, 'cLdxuaxaQwc')
+
 

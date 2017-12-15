@@ -59,7 +59,6 @@ class classifier:
                 print(e_id.get())
                 
             choice = combine_classifiers(e1.get(), e2.get(), self.sent, self.cooccur, video_dict, e_id.get())
-            #choice = cooccurrence_test(video_dict, e_id.get(), self.cooccur, e1.get(), e2.get())            
             string = "Based on our SCIENTIFIC CALCULATION " + str(choice) + " is better"
             message.set(string)
 
@@ -157,7 +156,6 @@ if __name__ == '__main__':
                     
     root = Tk()  
     input_raw = input("classify or generate: ")
-    print('aabb')
     if str(input_raw) == 'generate':
         app = generator()
     elif str(input_raw) == 'classify':
