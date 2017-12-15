@@ -50,7 +50,7 @@ def generate(corpus):
             line = line + n[2:length] + ' '
         comments.append(line)
         if i == 64:
-            return comments
+            return comments)
         if i == 100: 
             with open("rand_sent.txt", "w") as text_file:
                 text_file.write('\n'.join(comments))

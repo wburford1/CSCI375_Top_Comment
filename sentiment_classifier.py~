@@ -1,4 +1,5 @@
 import json
+import numpy as np
 from collections import namedtuple
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.corpus import sentiwordnet as swn

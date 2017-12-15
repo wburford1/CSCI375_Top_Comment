@@ -28,16 +28,16 @@ def ensemble_test(training_video_dict, testing_video_dict, video_id):
     for pair in test_set:
         s = sent_test(classifier_sent, pair[0], pair[1])
         sent_classified.append(s)
-        c = cooccurrence_test(training_video_dict, video_id, classifier_cooccur, pair[0], pair[1])
-        cooccur_classified.append(c)
-        t = combine_classifiers(pair[0], pair[1], classifier_sent, classifier_cooccur, training_video_dict, video_id)
-        together_classified.append(t)
+#        c = cooccurrence_test(training_video_dict, video_id, classifier_cooccur, pair[0], pair[1])
+#        cooccur_classified.append(c)
+#        t = combine_classifiers(pair[0], pair[1], classifier_sent, classifier_cooccur, training_video_dict, video_id)
+#        together_classified.append(t)
         correct.append(pair[2])
         # print('sent {}, cooc {}, correct {}'.format(s, c, pair[2]))
     test_end = time.time()
 
     f1s = []
-    for guess in [sent_classified, cooccur_classified, together_classified]:
+    for guess in [sent_classified]:
         tp = sum([1 for i in range(0, len(correct), 1) if correct[i]==1 and guess[i]==1])
         tn = sum([1 for i in range(0, len(correct), 1) if correct[i]==0 and guess[i]==0])
         fp = sum([1 for i in range(0, len(correct), 1) if correct[i]==0 and guess[i]==1])
@@ -58,7 +58,7 @@ def ensemble_test(training_video_dict, testing_video_dict, video_id):
 def ensemble_run(video_dict, generated, video_id):
     print('{} has {} comments to analyze.'.format(video_id, len(video_dict[video_id])))
     classifier_sent = sent_classifier(video_dict, video_id)
-#    classifier_cooccur = cooccurrence_classifier(video_dict, video_id)
+    classifier_cooccur = cooccurrence_classifier(video_dict, video_id)
 
     # generated = generated[:16]
     matchups = list(combinations(generated, 2))
